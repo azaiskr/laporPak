@@ -12,14 +12,6 @@ use Illuminate\Http\Request;
 
 class AdminReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
     // Display the specified resource.
     public function show(Report $report)
     {
@@ -30,30 +22,11 @@ class AdminReportController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Report $report)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateReportRequest $request, Report $report)
-    {
-        //
-    }
-
-
     public function destroy($reportId){
-
-        // Cari report berdasarkan ID dan hapus
         $report = Report::findOrFail($reportId);
         $report->delete();
 
-        return view ('reports.index');//Belum fix
+        return redirect()->back()->with('success', 'Report deleted successfully.');
     }
   
   

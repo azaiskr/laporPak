@@ -17,15 +17,12 @@ class ReportController extends Controller
 {
     
     // Display a listing of the resource.
-    public function index()
-    {
+    public function index(){
         $reports = Report::where('user_id', Auth::id())->get();
-
         return view('reports.index', compact('reports'));
     }
 
-    public function getPopularReports($timeFrame)
-    {
+    public function getPopularReports($timeFrame){
         $reportIds = ReportRating::select('laporan_id')
             ->where('rating_type', 'up')
             ->groupBy('laporan_id')
@@ -34,7 +31,6 @@ class ReportController extends Controller
             ->pluck('laporan_id');
 
         $reportsQuery = Report::whereIn('id', $reportIds);
-
         switch ($timeFrame) {
             case 'monthly':
                 $reportsQuery->where('created_at', '>=', now()->subMonth());
@@ -50,9 +46,7 @@ class ReportController extends Controller
                 }
                 break;
         }
-
         $reports = $reportsQuery->get();
-
         return view('reports.popular', ['reports' => $reports]);
     }
 
@@ -85,7 +79,7 @@ class ReportController extends Controller
             'address' => $request->input('address'),
             'status_id' => $request->input('status_id', 1),
         ]);
-        return redirect()->route('reports.index')->with('message', 'Report created successfully');
+        return redirect()->back()->with('success', 'Laporan berhasil dikirim.');
     }
 
 
@@ -102,30 +96,21 @@ class ReportController extends Controller
 
 
     public function postReportRating(StoreReportRatingRequest $request, $reportId){
-    // Validasi input rating
-    $validatedData = $request->validate();
+        $validatedData = $request->validate();
+        $report = Report::findOrFail($reportId);
+        $report->ratings()->create([
+            'user_id' => Auth::id(),
+            'laporan_id' => $validatedData['laporan_id'],
+            'rating_type' => $validatedData['rating_type'],
+        ]);
 
-    // Cari report berdasarkan ID
-    $report = Report::findOrFail($reportId);
-
-    // Simpan rating
-    $report->ratings()->create([
-        'user_id' => Auth::id(),
-        'laporan_id' => $validatedData['laporan_id'],
-        'rating' => $validatedData['rating'],
-    ]);
-
-    //view belum ada.
-    return view ('Rating Success');
+        return redirect()->back()->with('success', 'Rating submitted successfully.');
     }
 
 
     public function getNewestReports(){
-
-    // Ambil laporan terbaru dengan urutan descending berdasarkan waktu pembuatan
-    $reports = Report::orderBy('created_at', 'desc')->take(10)->get();
-
-    return view ('reports.newest', ['reports' => $reports]); //Belum Fix
-    
+        $reports = Report::orderBy('created_at', 'desc')->take(10)->get();
+        return view ('reports.newest', ['reports' => $reports]); //Belum Fix
     }
+    
 }

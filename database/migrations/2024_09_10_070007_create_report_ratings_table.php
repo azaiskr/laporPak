@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->foreign('laporan_id')->references('id')->on('reports')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unique(['laporan_id', 'user_id']);
         });
     }
 
