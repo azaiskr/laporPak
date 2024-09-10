@@ -13,21 +13,20 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('title');
-            $table->integer('category');
+            $table->unsignedBigInteger('category_id');
             $table->text('description');
             $table->string('media')->nullable();
-            $table->string('latitute')->nullable();
-            $table->string('longitute')->nullable();
-            $table->integer('up_rate')->nullable();
-            $table->integer('down_rate')->nullable();
-            $table->integer('status')->default(0);
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('adress')->nullable();
+            $table->unsignedBigInteger('status_id')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category')->references('id')->on('categories');
-            $table->foreign('status')->references('id')->on('statuses');
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

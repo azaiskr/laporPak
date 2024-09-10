@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     use HasFactory;
-    protected $table = 'report';
+    protected $table = 'reports';
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = true;
     protected $fillable = [
-        'user_id', 'title', 'category', 'description', 'media', 'latitute', 'longitute', 'up_rate', 'down_rate', 'status'
+        'user_id', 'title', 'category_id', 'description', 'media', 'latitude', 'longitude', 'address','status_id'
     ];
 
     public function user()
@@ -22,10 +22,10 @@ class Report extends Model
     }
     public function status()
     {
-        return $this->belongsTo(Status::class, 'status', 'id');
+        return $this->belongsTo(Status::class, 'status_id', 'id');
     }
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }
