@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReportRatingRequest;
 use App\Models\Report;
 use App\Models\ReportRating;
 use App\Http\Requests\StoreReportRequest;
@@ -84,7 +85,7 @@ class ReportController extends Controller
         //
     }
 
-    public function postReportRating(StoreReportRequest $request, $reportId){
+    public function postReportRating(StoreReportRatingRequest $request, $reportId){
     // Validasi input rating
     $validatedData = $request->validate();
 
@@ -93,13 +94,23 @@ class ReportController extends Controller
 
     // Simpan rating
     $report->ratings()->create([
-        'user_id' => auth()->id(),
+        'user_id' => Auth::id(),
+        'laporan_id' => $validatedData['laporan_id'],
         'rating' => $validatedData['rating'],
     ]);
 
-    return response()->json([
-        'message' => 'Rating berhasil diberikan!',
-    ]);
+    //view belum ada.
+    return view ('Rating Success');
+    }
+
+
+    public function getNewestReports(){
+
+    // Ambil laporan terbaru dengan urutan descending berdasarkan waktu pembuatan
+    $reports = Report::orderBy('created_at', 'desc')->take(10)->get();
+
+    return view ('reports.newest', ['reports' => $reports]); //Belum Fix
+    
     }
 
 
