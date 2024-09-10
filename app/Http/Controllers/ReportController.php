@@ -6,6 +6,7 @@ use App\Models\Report;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
 
+
 class ReportController extends Controller
 {
     /**
@@ -63,4 +64,24 @@ class ReportController extends Controller
     {
         //
     }
+
+    public function postReportRating(StoreReportRequest $request, $reportId){
+    // Validasi input rating
+    $validatedData = $request->validate();
+
+    // Cari report berdasarkan ID
+    $report = Report::findOrFail($reportId);
+
+    // Simpan rating
+    $report->ratings()->create([
+        'user_id' => auth()->id(),
+        'rating' => $validatedData['rating'],
+    ]);
+
+    return response()->json([
+        'message' => 'Rating berhasil diberikan!',
+    ]);
+    }
+
+
 }

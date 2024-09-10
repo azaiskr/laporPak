@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class StoreReportRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class StoreReportRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -22,7 +24,15 @@ class StoreReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|max:255',
+            'category_id' => 'required|',
+            'description',
+            'media',
+            'latitude',
+            'longitude',
+            'adress',
+            'status_id',
+
         ];
     }
 }
