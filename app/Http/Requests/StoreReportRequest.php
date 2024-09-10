@@ -3,15 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class StoreReportRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+
     public function authorize(): bool
     {
-        return false;
+        return Auth::check() && User::find(Auth::id())->isUser();
     }
 
     /**
@@ -22,7 +22,14 @@ class StoreReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'media' => 'nullable|string',
+            'latitude' => 'nullable|string',
+            'longitude' => 'nullable|string',
+            'address' => 'nullable|string',
+            'status_id' => 'nullable|exists:statuses,id',
         ];
     }
 }

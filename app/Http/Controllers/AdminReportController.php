@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\Status;
 use App\Models\ReportRating;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
 use App\Http\Requests\UpdateReportStatusRequest;
+use Illuminate\Http\Request;
 
 class AdminReportController extends Controller
 {
@@ -18,9 +20,14 @@ class AdminReportController extends Controller
         //
     }
 
+    // Display the specified resource.
     public function show(Report $report)
     {
-        //
+        $statuses = Status::all();
+        return view('reports.detail', [
+            'report' => $report,
+            'statuses' => $statuses,
+        ]);
     }
 
     /**
@@ -69,4 +76,15 @@ class AdminReportController extends Controller
 
         return redirect()->back()->with('success', 'Report status updated successfully.');
     }
+
+    public function getReportByTitle(Request $request){
+        $query = $request->input('query');
+        $reports = Report::where('title', 'like', '%' . $query . '%')
+            ->with(['user', 'category', 'status'])
+            ->get();
+        
+        return response()->json($reports);
+        // return view('partials.report_list', ['reports' => $reports]);
+    }
+    
 }
