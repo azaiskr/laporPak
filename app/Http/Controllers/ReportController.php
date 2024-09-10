@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use App\Models\Status;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Models\ReportRating;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
-use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+
 
 class ReportController extends Controller
 {
@@ -16,9 +18,42 @@ class ReportController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        //
+        $reports = Report::where('user_id', Auth::id())->get();
+
+        return view('reports.index', compact('reports'));
     }
 
+    public function getPopularReports($timeFrame)
+    {
+        $reportIds = ReportRating::select('laporan_id')
+            ->where('rating_type', 'up')
+            ->groupBy('laporan_id')
+            ->orderByRaw('COUNT(*) DESC')
+            ->limit(5)
+            ->pluck('laporan_id');
+
+        $reportsQuery = Report::whereIn('id', $reportIds);
+
+        switch ($timeFrame) {
+            case 'monthly':
+                $reportsQuery->where('created_at', '>=', now()->subMonth());
+                break;
+            case 'weekly':
+                $reportsQuery->where('created_at', '>=', now()->subWeek());
+                break;
+            default:
+                if (is_numeric($timeFrame) && $timeFrame > 0) {
+                    $reportsQuery->where('created_at', '>=', now()->subDays($timeFrame));
+                } else {
+                    return redirect()->back()->with('error', 'Invalid time frame specified.');
+                }
+                break;
+        }
+
+        $reports = $reportsQuery->get();
+
+        return view('reports.popular', ['reports' => $reports]);
+    }
 
     // Display the specified resource.
     public function show(Report $report) {     

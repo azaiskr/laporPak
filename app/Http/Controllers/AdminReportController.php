@@ -46,26 +46,43 @@ class AdminReportController extends Controller
         //
     }
 
-    public function getPopularReports()
+    public function getPopularReports($timeFrame)
     {
         $reportIds = ReportRating::select('laporan_id')
             ->where('rating_type', 'up')
             ->groupBy('laporan_id')
             ->orderByRaw('COUNT(*) DESC')
-            ->limit(10)
+            ->limit(5)
             ->pluck('laporan_id');
 
-        $reports = Report::whereIn('id', $reportIds)
-            ->get();
+        $reportsQuery = Report::whereIn('id', $reportIds);
+
+        switch ($timeFrame) {
+            case 'monthly':
+                $reportsQuery->where('created_at', '>=', now()->subMonth());
+                break;
+            case 'weekly':
+                $reportsQuery->where('created_at', '>=', now()->subWeek());
+                break;
+            default:
+                if (is_numeric($timeFrame) && $timeFrame > 0) {
+                    $reportsQuery->where('created_at', '>=', now()->subDays($timeFrame));
+                } else {
+                    return redirect()->back()->with('error', 'Invalid time frame specified.');
+                }
+                break;
+        }
+
+        $reports = $reportsQuery->get();
 
         return view('reports.popular', ['reports' => $reports]);
     }
 
-    public function updateReportStatus(UpdateReportStatusRequest $request, $id)
+    public function updateReportStatus(UpdateReportStatusRequest $request, $reportId)
     {
         $status = $request->validated()['status'];
 
-        $report = Report::find($id);
+        $report = Report::find($reportId);
 
         if (!$report) {
             return redirect()->back()->with('error', 'Report not found.');
