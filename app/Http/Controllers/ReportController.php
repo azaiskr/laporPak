@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\ReportRating;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -13,7 +15,24 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        $reports = Report::where('user_id', Auth::id())->get();
+
+        return view('reports.index', compact('reports'));
+    }
+
+    public function getPopularReports()
+    {
+        $reportIds = ReportRating::select('laporan_id')
+            ->where('rating_type', 'up')
+            ->groupBy('laporan_id')
+            ->orderByRaw('COUNT(*) DESC')
+            ->limit(10)
+            ->pluck('laporan_id');
+
+        $reports = Report::whereIn('id', $reportIds)
+            ->get();
+
+        return view('reports.popular', ['reports' => $reports]); // later modify the view
     }
 
     /**
