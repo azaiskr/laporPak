@@ -1,6 +1,6 @@
-<div>
+<div class="bg-white">
     <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
-    <nav class="bg-yellow-white shadow-md">
+    <nav class="bg-yellow-white shadow-sm">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-24 items-center justify-between">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -36,9 +36,9 @@
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-16">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950" aria-current="page">Beranda</a>
-                        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:text-gray-400">Forum</a>
-                        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:text-gray-400">Lapor</a>
+                        <a href="{{ route('home') }}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950" aria-current="page">Beranda</a>
+                        <a href="{{ route('forum') }}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:text-gray-400">Forum</a>
+                        <a href="{{ route('lapor') }}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:text-gray-400">Lapor</a>
                         <div class="flex items-center space-x-3">
                             <div>
                                 <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
@@ -85,6 +85,6 @@
             <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
             </div>
         </div> --}}
-        
+
     </nav>
 </div>
