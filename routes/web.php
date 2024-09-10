@@ -25,6 +25,11 @@ Route::middleware('auth')->group(function () {
     }) -> name('lapor');
 });
 
+//Used for testing
+// Route::get('/newlogin', function () {
+//     return view('newlogin');
+// })->name('newlogin');
+
 // Used for testing
 // Route::get('/lapor', function () {
 //     return view('lapor');
