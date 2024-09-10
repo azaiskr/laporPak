@@ -46,6 +46,17 @@ class AdminReportController extends Controller
         //
     }
 
+
+    public function destroy($reportId){
+
+        // Cari report berdasarkan ID dan hapus
+        $report = Report::findOrFail($reportId);
+        $report->delete();
+
+        return view ('reports.index');//Belum fix
+    }
+  
+  
     public function getPopularReports($timeFrame)
     {
         $reportIds = ReportRating::select('laporan_id')

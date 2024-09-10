@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+
 
 class StoreReportRequest extends FormRequest
 {
@@ -25,10 +27,10 @@ class StoreReportRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
-            'media' => 'nullable|string',
-            'latitude' => 'nullable|string',
-            'longitude' => 'nullable|string',
-            'address' => 'nullable|string',
+            'media' => 'required|string',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
+            'adress' => 'required|string|max:255',
             'status_id' => 'nullable|exists:statuses,id',
         ];
     }
