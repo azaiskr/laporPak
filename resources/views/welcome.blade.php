@@ -20,8 +20,9 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <x-nav-bar></x-nav-bar>
     <body class="font-sans antialiased dark:bg-white dark:text-black/50">
-
+        <x-nav-bar></x-nav-bar>
+        <x-hero></x-hero>
+        <x-content></x-content>
     </body>
 </html>
