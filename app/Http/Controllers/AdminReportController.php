@@ -51,7 +51,7 @@ class AdminReportController extends Controller
         $reports = Report::whereIn('id', $reportIds)
             ->get();
 
-        return view('reports.popular', ['reports' => $reports]);
+        return view('reports.popular', ['reports' => $reports]); //later modify the view
     }
 
     public function updateReportStatus(UpdateReportStatusRequest $request, $id)
