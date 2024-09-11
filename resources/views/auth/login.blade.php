@@ -29,7 +29,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
-                                    <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-black rounded bg-gray-50" required="">
+                                    <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-black rounded bg-gray-50">
                                 </div>
                                 <div class="ml-3 text-sm">
                                     <label for="remember" class="text-black">Ingatkan saya</label>

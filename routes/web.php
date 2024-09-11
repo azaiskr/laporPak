@@ -9,9 +9,15 @@ Route::get('/', function () {
     return view('welcome');
 }) -> name('home');
 
-Route::get('/forum', function () {
-    return view('forum');
-}) -> name('forum');
+// Route::get('/forum', function () {
+//     return view('forum');
+// }) -> name('forum');
+
+Route::get('/forum', [ReportController::class, 'forum'])-> name('forum');
+
+
+Route::get('/forum/{timeFrame}', [ReportController::class, 'getPopularReports']);
+
 
 
 Route::get('/dashboard', function () {
