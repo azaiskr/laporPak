@@ -24,16 +24,16 @@
 
 <body class="flex flex-col min-h-screen font-sans antialiased dark:bg-[#f4f4f4] dark:text-black/50">
     <x-nav-bar></x-nav-bar>
-   <main class="w-full my-4 flex-grow">
+    <main class="w-full my-4 flex-grow">
         <section class="lg:max-w-[550px] mx-auto p-3 bg-white rounded-2xl drop-shadow-md mb-4 mt-12 font-bold text-black">
             <div>
-             <div class="flex gap-3 items-center">
+                <div class="flex gap-3 items-center">
                 <div class="bg-gray-300 aspect-square w-12 ml-2 rounded-full"></div>
                 <span>Nama Lengkap Pengguna</span>
             </div>
             <div class="flex justify-between items-center mt-4">
                 <button class="bg-[#f4f4f4] flex items-center px-3 py-2 m-2 rounded-md">
-                    Tambah Laporan 
+                    Tambah Laporan
                     <svg class="h-6 w-6 text-black ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -68,7 +68,7 @@
                 <div class="mb-4 flex text-xs justify-center text-center font-extrabold text-black bg-yellow-200 mt-1 py-4 px-2">
                     Laporan ini sedang di proses oleh team
                 </div>
-                
+
                 <!-- User Information -->
                 <div class="flex">
                     <div class="flex flex-col gap-2 mt-4 items-start">
@@ -101,9 +101,9 @@
 
                 <!-- Image -->
                 <div class="mx-auto relative w-full h-64">
-                    <img 
-                        src="https://dummyimage.com/600x400/000/fff" 
-                        alt="Descriptive Alt Text" 
+                    <img
+                        src="https://dummyimage.com/600x400/000/fff"
+                        alt="Descriptive Alt Text"
                         class="absolute p-4 inset-0 w-full h-full object-cover rounded-sm"
                     />
                 </div>
@@ -144,7 +144,7 @@
                 {{-- <div class="mb-4 flex text-xs justify-center text-center font-extrabold text-black bg-yellow-200 mt-1 py-4 px-2">
                     Laporan ini sedang di proses oleh team
                 </div> --}}
-                
+
                 <!-- User Information -->
                 <div class="flex">
                     <div class="flex flex-col gap-2 mt-4 items-start">
@@ -177,9 +177,9 @@
 
                 <!-- Image -->
                 <div class="mx-auto relative w-full h-64">
-                    <img 
-                        src="https://dummyimage.com/600x400/000/fff" 
-                        alt="Descriptive Alt Text" 
+                    <img
+                        src="https://dummyimage.com/600x400/000/fff"
+                        alt="Descriptive Alt Text"
                         class="absolute p-4 inset-0 w-full h-full object-cover rounded-sm"
                     />
                 </div>

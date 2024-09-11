@@ -56,4 +56,11 @@ Route::middleware('auth')->group(function () {
 //     return view('lapor');
 // })->name('lapor');
 
+Route::get('/admin', function(){
+    return view('admin.dashboard');
+})->name('admin-dashboard');
+Route::get('/admin/report', function(){
+    return view('admin.report');
+})->name('admin-report');
+
 require __DIR__.'/auth.php';
