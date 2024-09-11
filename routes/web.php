@@ -7,7 +7,12 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+}) -> name('home');
+
+Route::get('/forum', function () {
+    return view('forum');
+}) -> name('forum');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -17,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/lapor', function () {
+        return view('lapor');
+    }) -> name('lapor');
 
     // =============== USER ============= \\
     Route::get('/reports/newest', [ReportController::class, 'getNewestReports'])->name('reports.newest');
@@ -27,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports/create', [ReportController::class, 'create'])->name('reports.create');
     Route::post('/reports/create', [ReportController::class, 'store'])->name('reports.store');
     Route::post('/reports/{reportId}/rate', [ReportController::class, 'postReportRatings'])->name('post.report.rating');
-    
+
     // =============== ADMIN ============= \\
     Route::middleware('CheckIsAdmin')->group(function () {
         Route::get('/reports/popular/{timeFrame}', [AdminReportController::class, 'getPopularReports'])->name('reports.popular');
@@ -37,5 +45,22 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/reports/{report}/status', [AdminReportController::class, 'updateReportStatus'])->name('admin.reports.updateReportStatus');
     });
 });
+
+//Used for testing
+// Route::get('/newlogin', function () {
+//     return view('newlogin');
+// })->name('newlogin');
+
+// Used for testing
+// Route::get('/lapor', function () {
+//     return view('lapor');
+// })->name('lapor');
+
+Route::get('/admin', function(){
+    return view('admin.dashboard');
+})->name('admin-dashboard');
+Route::get('/admin/report', function(){
+    return view('admin.report');
+})->name('admin-report');
 
 require __DIR__.'/auth.php';
