@@ -23,8 +23,6 @@ class StoreReportRatingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'laporan_id' => 'required|exists:reports,id',
-            'user_id' => 'required|exists:users,id',
             'rating_type' => 'required|in:up,down',
         ];
     }
