@@ -124,19 +124,31 @@ class ReportController extends Controller
     // Store a newly created resource in storage.
     public function store(StoreReportRequest $request)
     {
+        // Handle file upload
+        if ($request->hasFile('media')) {
+            $file = $request->file('media');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('public/media', $fileName);
+        } else {
+            $filePath = null;
+        }
+
+        // Create the report
         $report = Report::create([
             'user_id' => Auth::id(),
             'title' => $request->input('title'),
             'category_id' => $request->input('category_id'),
             'description' => $request->input('description'),
-            'media' => $request->input('media'),
+            'media' => $filePath,
             'latitude' => $request->input('latitude'),
             'longitude' => $request->input('longitude'),
             'address' => $request->input('address'),
             'status_id' => $request->input('status_id', 1),
         ]);
+
         return redirect()->back()->with('success', 'Laporan berhasil dikirim.');
     }
+
 
 
     // Search Report by title
