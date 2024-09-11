@@ -112,7 +112,7 @@
 
                     <!-- Image -->
                     <div class="mx-auto relative w-full h-64">
-                        <img src="https://dummyimage.com/600x400/000/fff" alt="Descriptive Alt Text"
+                        <img src="{{ Storage::url($popularReport->media) }}" alt="Descriptive Alt Text"
                             class="absolute p-4 inset-0 w-full h-full object-cover rounded-sm" />
                     </div>
 
@@ -213,7 +213,7 @@
 
                     <!-- Image -->
                     <div class="mx-auto relative w-full h-64">
-                        <img src="https://dummyimage.com/600x400/000/fff" alt="Descriptive Alt Text"
+                        <img src="{{ Storage::url($newestReport->media) }}" alt="Descriptive Alt Text"
                             class="absolute p-4 inset-0 w-full h-full object-cover rounded-sm" />
                     </div>
 
