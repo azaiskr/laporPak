@@ -25,6 +25,7 @@ class ReportResource extends JsonResource
             'media' => $this->media,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'address' => $this->address,
             'up_rate' => $upRate,
             'down_rate' => $downRate,
             'status' => $this->status->status,
