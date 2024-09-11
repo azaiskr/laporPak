@@ -21,15 +21,30 @@
                         <input type="email" name="email" id="email" class="shadow-md bg-white border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 placeholder-gray-500" placeholder="login@email.com" required="">
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
-                    <div>
-                        <label for="password" class="block mb-2 text-sm sm:text-md text-gray-900">Password</label>
-                        <input type="password" name="password" id="password" placeholder="••••••••" class="shadow-md bg-white border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 placeholder-gray-500" required="">
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div>
-                    <div class="flex flex-col sm:flex-row items-center justify-between">
-                        <div class="flex items-center mb-4 sm:mb-0">
-                            <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-white" required="">
-                            <label for="remember" class="ml-2 text-sm text-gray-700">Ingatkan saya</label>
+                    <form class="space-y-4 md:space-y-6" action="{{ route('login') }}" method="POST">
+                        @csrf
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                            <input type="email" name="email" id="email" class="bg-blue-50 border border-blue-300 text-gray-900 rounded-lg block w-full p-2.5" placeholder="login@email.com" required="">
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-blue-50 border border-gray-300 text-gray-900 rounded-lg  block w-full p-2.5" required="">
+                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-black rounded bg-gray-50">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="remember" class="text-black">Ingatkan saya</label>
+                                </div>
+                            </div>
+                            @if (Route::has('password.request'))
+                            <a href="#" class="text-sm font-medium hover:underline">Lupa password?</a>
+                            @endif
                         </div>
                         @if (Route::has('password.request'))
                         <a href="#" class="text-sm text-blue-700 font-medium hover:underline">Lupa password?</a>

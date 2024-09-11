@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('media')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->string('adress')->nullable();
+            $table->string('address')->nullable();
             $table->unsignedBigInteger('status_id')->default(0);
             $table->timestamps();
 
