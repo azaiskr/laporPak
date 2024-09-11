@@ -26,7 +26,6 @@ class ReportController extends Controller
 
     public function forum()
     {
-        // Fetch report IDs with the count of upvotes
         $reportIdsWithCounts = ReportRating::select('laporan_id', DB::raw('COUNT(*) as upvote_count'))
             ->where('rating_type', 'up')
             ->groupBy('laporan_id')
@@ -34,19 +33,14 @@ class ReportController extends Controller
             ->limit(5)
             ->get();
 
-        // Extract the report IDs
         $reportIds = $reportIdsWithCounts->pluck('laporan_id');
 
-        // Fetch the reports based on the report IDs
         $reportsQuery = Report::whereIn('id', $reportIds);
 
-        // Apply time frame filtering
         $reportsQuery->where('created_at', '>=', now()->subWeek());
 
-        // Get the popular reports
         $popularReports = $reportsQuery->get();
 
-        // Fetch downvote counts for the report IDs
         $downvoteCounts = ReportRating::select('laporan_id', DB::raw('COUNT(*) as downvote_count'))
             ->whereIn('laporan_id', $reportIds)
             ->where('rating_type', 'down')
@@ -54,20 +48,16 @@ class ReportController extends Controller
             ->get()
             ->keyBy('laporan_id');
 
-        // Merge upvote and downvote counts into popular reports
         foreach ($popularReports as $report) {
             $upvoteData = $reportIdsWithCounts->firstWhere('laporan_id', $report->id);
             $report->upvote_count = $upvoteData ? $upvoteData->upvote_count : 0;
             $report->downvote_count = $downvoteCounts->get($report->id)->downvote_count ?? 0;
         }
 
-        // Fetch the newest reports
         $newestReports = Report::orderBy('created_at', 'desc')->take(10)->get();
 
-        // Extract report IDs for newest reports
         $newestReportIds = $newestReports->pluck('id');
 
-        // Fetch upvote counts for newest reports
         $newestUpvoteCounts = ReportRating::select('laporan_id', DB::raw('COUNT(*) as upvote_count'))
             ->whereIn('laporan_id', $newestReportIds)
             ->where('rating_type', 'up')
@@ -75,7 +65,6 @@ class ReportController extends Controller
             ->get()
             ->keyBy('laporan_id');
 
-        // Fetch downvote counts for newest reports
         $newestDownvoteCounts = ReportRating::select('laporan_id', DB::raw('COUNT(*) as downvote_count'))
             ->whereIn('laporan_id', $newestReportIds)
             ->where('rating_type', 'down')
@@ -83,7 +72,6 @@ class ReportController extends Controller
             ->get()
             ->keyBy('laporan_id');
 
-        // Merge upvote and downvote counts into newest reports
         foreach ($newestReports as $report) {
             $report->upvote_count = $newestUpvoteCounts->get($report->id)->upvote_count ?? 0;
             $report->downvote_count = $newestDownvoteCounts->get($report->id)->downvote_count ?? 0;
@@ -93,61 +81,61 @@ class ReportController extends Controller
     }
 
 
-    public function getPopularReports($timeFrame)
-    {
-        // Fetch report IDs with the count of upvotes
-        $reportIdsWithCounts = ReportRating::select('laporan_id', DB::raw('COUNT(*) as upvote_count'))
-            ->where('rating_type', 'up')
-            ->groupBy('laporan_id')
-            ->orderBy('upvote_count', 'DESC')
-            ->limit(5)
-            ->get();
+    // public function getPopularReports($timeFrame)
+    // {
+    //     // Fetch report IDs with the count of upvotes
+    //     $reportIdsWithCounts = ReportRating::select('laporan_id', DB::raw('COUNT(*) as upvote_count'))
+    //         ->where('rating_type', 'up')
+    //         ->groupBy('laporan_id')
+    //         ->orderBy('upvote_count', 'DESC')
+    //         ->limit(5)
+    //         ->get();
 
-        // Extract the report IDs
-        $reportIds = $reportIdsWithCounts->pluck('laporan_id');
+    //     // Extract the report IDs
+    //     $reportIds = $reportIdsWithCounts->pluck('laporan_id');
 
-        // Fetch the reports based on the report IDs
-        $reportsQuery = Report::whereIn('id', $reportIds);
+    //     // Fetch the reports based on the report IDs
+    //     $reportsQuery = Report::whereIn('id', $reportIds);
 
-        // Apply time frame filtering
-        switch ($timeFrame) {
-            case 'monthly':
-                $reportsQuery->where('created_at', '>=', now()->subMonth());
-                break;
-            case 'weekly':
-                $reportsQuery->where('created_at', '>=', now()->subWeek());
-                break;
-            default:
-                if (is_numeric($timeFrame) && $timeFrame > 0) {
-                    $reportsQuery->where('created_at', '>=', now()->subDays($timeFrame));
-                } else {
-                    return redirect()->back()->with('error', 'Invalid time frame specified.');
-                }
-                break;
-        }
+    //     // Apply time frame filtering
+    //     switch ($timeFrame) {
+    //         case 'monthly':
+    //             $reportsQuery->where('created_at', '>=', now()->subMonth());
+    //             break;
+    //         case 'weekly':
+    //             $reportsQuery->where('created_at', '>=', now()->subWeek());
+    //             break;
+    //         default:
+    //             if (is_numeric($timeFrame) && $timeFrame > 0) {
+    //                 $reportsQuery->where('created_at', '>=', now()->subDays($timeFrame));
+    //             } else {
+    //                 return redirect()->back()->with('error', 'Invalid time frame specified.');
+    //             }
+    //             break;
+    //     }
 
-        // Get the popular reports
-        $popularReports = $reportsQuery->get();
+    //     // Get the popular reports
+    //     $popularReports = $reportsQuery->get();
 
-        // Fetch downvote counts for the report IDs
-        $downvoteCounts = ReportRating::select('laporan_id', DB::raw('COUNT(*) as downvote_count'))
-            ->whereIn('laporan_id', $reportIds)
-            ->where('rating_type', 'down')
-            ->groupBy('laporan_id')
-            ->get()
-            ->keyBy('laporan_id');
+    //     // Fetch downvote counts for the report IDs
+    //     $downvoteCounts = ReportRating::select('laporan_id', DB::raw('COUNT(*) as downvote_count'))
+    //         ->whereIn('laporan_id', $reportIds)
+    //         ->where('rating_type', 'down')
+    //         ->groupBy('laporan_id')
+    //         ->get()
+    //         ->keyBy('laporan_id');
 
-        // Merge upvote and downvote counts into reports
-        foreach ($popularReports as $report) {
-            $upvoteData = $reportIdsWithCounts->firstWhere('laporan_id', $report->id);
-            $report->upvote_count = $upvoteData ? $upvoteData->upvote_count : 0;
-            $report->downvote_count = $downvoteCounts->get($report->id)->downvote_count ?? 0;
-        }
+    //     // Merge upvote and downvote counts into reports
+    //     foreach ($popularReports as $report) {
+    //         $upvoteData = $reportIdsWithCounts->firstWhere('laporan_id', $report->id);
+    //         $report->upvote_count = $upvoteData ? $upvoteData->upvote_count : 0;
+    //         $report->downvote_count = $downvoteCounts->get($report->id)->downvote_count ?? 0;
+    //     }
 
-        $newestReports = Report::orderBy('created_at', 'desc')->take(10)->get();
+    //     $newestReports = Report::orderBy('created_at', 'desc')->take(10)->get();
 
-        return view('forum', ['popularReports' => $popularReports, 'newestReports' => $newestReports]);
-    }
+    //     return view('forum', ['popularReports' => $popularReports, 'newestReports' => $newestReports]);
+    // }
 
 
     // Display the specified resource.
@@ -202,16 +190,14 @@ class ReportController extends Controller
     {
         $validatedData = $request->validated();
 
-        // Find the report or fail if not found
         $report = Report::findOrFail($reportId);
 
-        // Create a new rating
         $report->ratings()->create([
             'user_id' => Auth::id(),
-            'laporan_id' => $reportId, // Use $reportId here
+            'laporan_id' => $reportId,
             'rating_type' => $validatedData['rating_type'],
         ]);
-
+        dd($report);
         return redirect('forum');
     }
 

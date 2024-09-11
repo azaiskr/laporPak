@@ -5,9 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Seeders\DatabaseSeeder;
-use Database\Seeders\ApiReportSeeder;
-use Database\Seeders\PersonalAccessTokenSeeder;
 use App\Models\Report;
+use Database\Seeders\ApiTestSeeder;
 
 class ApiReportTest extends TestCase
 {
@@ -23,7 +22,7 @@ class ApiReportTest extends TestCase
 
     public function testIndexReturnsReports(): void
     {
-        $this->seed([DatabaseSeeder::class, PersonalAccessTokenSeeder::class, ApiReportSeeder::class]);
+        $this->seed([DatabaseSeeder::class, ApiTestSeeder::class]);
         $apikey = hash('sha256', 'johndoeapikey');
         $response = $this->getJson('/api/reports?page=1&size=10', [
             'X-API-KEY' => $apikey,
@@ -59,7 +58,7 @@ class ApiReportTest extends TestCase
      */
     public function testIndexFiltersByCategory(): void
     {
-        $this->seed([DatabaseSeeder::class, PersonalAccessTokenSeeder::class, ApiReportSeeder::class]);
+        $this->seed([DatabaseSeeder::class, ApiTestSeeder::class]);
         $apikey = hash('sha256', 'johndoeapikey');
         $response = $this->getJson('/api/reports?filter=category', [
             'X-API-KEY' => $apikey,
@@ -94,7 +93,7 @@ class ApiReportTest extends TestCase
      */
     public function testIndexFiltersByUpRate(): void
     {
-        $this->seed([DatabaseSeeder::class, PersonalAccessTokenSeeder::class, ApiReportSeeder::class]);
+        $this->seed([DatabaseSeeder::class, ApiTestSeeder::class]);
         $apikey = hash('sha256', 'johndoeapikey');
         $response = $this->getJson('/api/reports?filter=up_rate', [
             'X-API-KEY' => $apikey,
@@ -129,7 +128,7 @@ class ApiReportTest extends TestCase
      */
     public function testIndexFiltersByDownRate(): void
     {
-        $this->seed([DatabaseSeeder::class, PersonalAccessTokenSeeder::class, ApiReportSeeder::class]);
+        $this->seed([DatabaseSeeder::class, ApiTestSeeder::class]);
         $apikey = hash('sha256', 'johndoeapikey');
         $response = $this->getJson('/api/reports?filter=down_rate', [
             'X-API-KEY' => $apikey,
@@ -164,7 +163,7 @@ class ApiReportTest extends TestCase
      */
     public function testIndexWithInvalidParameters(): void
     {
-        $this->seed([DatabaseSeeder::class, PersonalAccessTokenSeeder::class, ApiReportSeeder::class]);
+        $this->seed([DatabaseSeeder::class, ApiTestSeeder::class]);
         $apikey = hash('sha256', 'johndoeapikey');
         $response = $this->getJson('/api/reports?page=invalid&size=invalid', [
             'X-API-KEY' => $apikey,
@@ -183,7 +182,7 @@ class ApiReportTest extends TestCase
      */
     public function testShowReturnsReport(): void
     {
-        $this->seed([DatabaseSeeder::class, PersonalAccessTokenSeeder::class, ApiReportSeeder::class]);
+        $this->seed([DatabaseSeeder::class, ApiTestSeeder::class]);
 
         $report = Report::with('ratings')->first();
         $upRate = $report->ratings->where('rating_type', 'up')->count();
@@ -220,7 +219,7 @@ class ApiReportTest extends TestCase
      */
     public function testShowReportNotFound(): void
     {
-        $this->seed([DatabaseSeeder::class, PersonalAccessTokenSeeder::class, ApiReportSeeder::class]);
+        $this->seed([DatabaseSeeder::class, ApiTestSeeder::class]);
         $apikey = hash('sha256', 'johndoeapikey');
         $response = $this->getJson('/api/reports/999999', [
             'X-API-KEY' => $apikey,
@@ -239,7 +238,7 @@ class ApiReportTest extends TestCase
      */
     public function testUnauthorizedAccess(): void
     {
-        $this->seed([DatabaseSeeder::class, PersonalAccessTokenSeeder::class, ApiReportSeeder::class]);
+        $this->seed([DatabaseSeeder::class, ApiTestSeeder::class]);
 
         $response = $this->getJson('/api/reports?page=1&size=10');
 
