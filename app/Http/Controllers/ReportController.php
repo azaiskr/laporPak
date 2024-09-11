@@ -189,22 +189,27 @@ class ReportController extends Controller
     public function postReportRatings(StoreReportRatingRequest $request, $reportId)
     {
         $validatedData = $request->validated();
+        $userId = Auth::id();
 
+        // Check if the user has already rated this report
+        $existingRating = ReportRating::where('laporan_id', $reportId)
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($existingRating) {
+            // Redirect back with a message if the user has already rated the report
+            return redirect()->back()->withErrors(['error' => 'You have already rated this report.']);
+        }
+
+        // Proceed to create a new rating if none exists
         $report = Report::findOrFail($reportId);
 
         $report->ratings()->create([
-            'user_id' => Auth::id(),
+            'user_id' => $userId,
             'laporan_id' => $reportId,
             'rating_type' => $validatedData['rating_type'],
         ]);
-        dd($report);
-        return redirect('forum');
-    }
 
-
-    public function getNewestReports()
-    {
-        $newestReports = Report::orderBy('created_at', 'desc')->take(10)->get();
-        return view('reports.newest', ['newesrTreports' => $newestReports]); //Belum Fix
+        return redirect('forum')->with('success', 'Rating submitted successfully.');
     }
 }

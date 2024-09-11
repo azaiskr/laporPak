@@ -16,7 +16,7 @@ Route::get('/', function () {
 Route::get('/forum', [ReportController::class, 'forum'])-> name('forum');
 
 
-Route::get('/forum/{timeFrame}', [ReportController::class, 'getPopularReports']);
+// Route::get('/forum/{timeFrame}', [ReportController::class, 'getPopularReports']);
 
 
 
