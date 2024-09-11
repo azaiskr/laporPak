@@ -20,15 +20,15 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased dark:bg-slate-900 dark:text-black/50">
-        <div class="flex max-w-[1600px] mx-auto py-2 h-screen">
+    <body class="font-sans antialiased">
+        <div class="flex max-w-[1600px] mx-auto h-screen z-50">
+            <div class="z-40">
+            @include('components.admin-navbar')
+            </div>
             <div class="w-[20%]">
                 @include('components.admin-sidebar')
             </div>
-            <div class="w-full h-full bg-slate-200">
-                <div class="w-full h-[10%]">
-                    test
-                </div>
+            <div class="w-full h-full bg-slate-200 pt-12">
                 <div class="h-[90%] overflow-auto">
                     @yield('content')
                 </div>
