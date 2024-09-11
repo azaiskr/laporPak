@@ -44,6 +44,21 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+// =============== Testting ============= \\
+
+// Used for testing
+// Route::get('/forgotpassword', function () {
+//     return view('forgotpassword');
+// })->name('forgotpassword');
+
+// Route::get('/verifycode', function () {
+//     return view('verifycode');
+// })->name('verifycode');
+
+// Route::get('/resetpassword', function () {
+//     return view('resetpassword');
+// })->name('resetpassword');
+
 //Used for testing
 // Route::get('/newlogin', function () {
 //     return view('newlogin');
