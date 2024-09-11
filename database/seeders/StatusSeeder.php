@@ -11,10 +11,10 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
         $statuses = [
-            ['status' => 'on_review'],
-            ['status' => 'verived'],
-            ['status' => 'rejected'],
-            ['status' => 'irrelevant'],
+            ['status' => 'Pending'],
+            ['status' => 'Validated'],
+            ['status' => 'Invalid'],
+            ['status' => 'Rejected'],
         ];
 
         foreach ($statuses as $status){
