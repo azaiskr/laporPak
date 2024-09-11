@@ -16,14 +16,16 @@ class DummyUserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'John Doe',
-                'email' => 'johndoe@example.com',
+                'name' => 'Admin',
+                'email' => 'admin@example.com',
                 'password' => Hash::make('password'),
+                'role' => '1',
             ],
             [
-                'name' => 'Jane Doe',
-                'email' => 'janedoe@example.com',
+                'name' => 'User 1',
+                'email' => 'user1@example.com',
                 'password' => Hash::make('password'),
+                'role' => '2',
             ],
         ];
 
@@ -32,14 +34,14 @@ class DummyUserSeeder extends Seeder
         }
 
 
-        $faker = Faker::create();
+        // $faker = Faker::create();
 
-        foreach (range(1, 10) as $index) {
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'),
-            ]);
-        }
+        // foreach (range(1, 10) as $index) {
+        //     User::create([
+        //         'name' => $faker->name,
+        //         'email' => $faker->unique()->safeEmail,
+        //         'password' => Hash::make('password'),
+        //     ]);
+        // }
     }
 }
