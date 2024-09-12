@@ -13,6 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+        $middleware->use([
+            'CheckIsAdmin' => \App\Http\Middleware\CheckIsAdmin::class,
+        ]);
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
