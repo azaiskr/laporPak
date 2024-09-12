@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="px-12 py-6 flex flex-col gap-3">
-    <div class="w-full bg-white px-4 py-2">Dashboard</div>
+    <div class="w-full bg-white p-4">Dashboard</div>
     <div class="w-full bg-white p-4">
         <div class="flex gap-4">
             <div class="w-full shadow p-4 rounded-2xl">
