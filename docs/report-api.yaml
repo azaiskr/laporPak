@@ -1,0 +1,181 @@
+openapi: "3.0.2"
+info:
+  title: "Report API"
+  version: "1.0.0"
+servers:
+  - url: "https://laporpak.test"
+    description: "Local server running with Laragon"
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: "API key required to access the endpoints"
+
+  schemas:
+    Report:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+          maxLength: 255
+        category:
+          type: string
+        description:
+          type: string
+          maxLength: 255
+        media:
+          type: string
+          nullable: true
+          maxLength: 255
+        latitute:
+          type: string
+          nullable: true
+          maxLength: 35
+        longitute:
+          type: string
+          nullable: true
+          maxLength: 35
+        address:
+          type: string
+          nullable: true
+          maxLength: 255
+        up_rate:
+          type: integer
+          nullable: true
+        down_rate:
+          type: integer
+          nullable: true
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          maxLength: 32
+        updated_at:
+          type: string
+          format: date-time
+          maxLength: 32
+      additionalProperties: false
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: "Error message description"
+      additionalProperties: false
+
+paths:
+  /report:
+    get:
+      summary: "Get a list of reports"
+      description: "Fetches a list of reports with options to search by title, sort by category, and filter by up or down rate."
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: "Page number for pagination"
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 100
+        - name: title
+          in: query
+          description: "Search reports by title"
+          required: false
+          schema:
+            type: string
+            maxLength: 255
+        - name: filter
+          in: query
+          description: "Filter reports by a specific field"
+          required: false
+          schema:
+            type: string
+            enum: [category, up_rate, down_rate]
+        - name: order
+          in: query
+          description: "Order of sorting"
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+      responses:
+        '200':
+          description: "A list of reports"
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 10
+                items:
+                  $ref: '#/components/schemas/Report'
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      page:
+                        type: integer
+                      per_page:
+                        type: integer
+                      total_pages:
+                        type: integer
+        '400':
+          description: "Invalid parameters"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /report/{id}:
+    get:
+      summary: "Get a report by ID"
+      description: "Fetches a specific report by its ID."
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "Report ID"
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: "Report details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+        '404':
+          description: "Report not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

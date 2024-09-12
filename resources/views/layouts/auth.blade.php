@@ -21,9 +21,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased dark:bg-white dark:text-black/50">
-        <x-nav-bar></x-nav-bar>
-        <x-hero></x-hero>
-        <x-content></x-content>
-        <x-footer></x-footer>
+        @include('components.nav-bar-2')
+        
+        @yield('content')
     </body>
 </html>
+
