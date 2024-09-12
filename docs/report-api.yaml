@@ -22,13 +22,11 @@ components:
       properties:
         id:
           type: integer
-        user_id:
-          type: integer
         title:
           type: string
           maxLength: 255
         category:
-          type: integer
+          type: string
         description:
           type: string
           maxLength: 255
@@ -44,6 +42,10 @@ components:
           type: string
           nullable: true
           maxLength: 35
+        address:
+          type: string
+          nullable: true
+          maxLength: 255
         up_rate:
           type: integer
           nullable: true
@@ -51,8 +53,7 @@ components:
           type: integer
           nullable: true
         status:
-          type: integer
-          default: 0
+          type: string
         created_at:
           type: string
           format: date-time
@@ -76,6 +77,8 @@ paths:
     get:
       summary: "Get a list of reports"
       description: "Fetches a list of reports with options to search by title, sort by category, and filter by up or down rate."
+      security:
+        - ApiKeyAuth: []
       parameters:
         - name: page
           in: query
@@ -93,14 +96,13 @@ paths:
           schema:
             type: string
             maxLength: 255
-        - name: sort
+        - name: filter
           in: query
-          description: "Sort reports by a specific field"
+          description: "Filter reports by a specific field"
           required: false
           schema:
             type: string
             enum: [category, up_rate, down_rate]
-            default: category
         - name: order
           in: query
           description: "Order of sorting"
@@ -109,14 +111,6 @@ paths:
             type: string
             enum: [asc, desc]
             default: asc
-        - name: filter
-          in: query
-          description: "Filter reports based on up rate or down rate"
-          required: false
-          schema:
-            type: string
-            enum: [up_rate, down_rate]
-            default: up_rate
       responses:
         '200':
           description: "A list of reports"
@@ -124,9 +118,20 @@ paths:
             application/json:
               schema:
                 type: array
-                maxItems: 100
+                maxItems: 10
                 items:
                   $ref: '#/components/schemas/Report'
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      page:
+                        type: integer
+                      per_page:
+                        type: integer
+                      total_pages:
+                        type: integer
         '400':
           description: "Invalid parameters"
           content:
@@ -139,17 +144,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
 
   /report/{id}:
     get:
       summary: "Get a report by ID"
       description: "Fetches a specific report by its ID."
+      security:
+        - ApiKeyAuth: []
       parameters:
         - name: id
           in: path
@@ -174,12 +175,6 @@ paths:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '403':
-          description: Forbidden
           content:
             application/json:
               schema:

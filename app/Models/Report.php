@@ -13,7 +13,15 @@ class Report extends Model
     public $incrementing = true;
     public $timestamps = true;
     protected $fillable = [
-        'user_id', 'title', 'category_id', 'description', 'media', 'latitude', 'longitude', 'address','status_id'
+        'user_id',
+        'title',
+        'category_id',
+        'description',
+        'media',
+        'latitude',
+        'longitude',
+        'address',
+        'status_id'
     ];
 
     public function user()
@@ -33,4 +41,13 @@ class Report extends Model
         return $this->hasMany(ReportRating::class, 'id', 'id');
     }
 
+    public function getUpRateAttribute()
+    {
+        return $this->ratings()->where('rating_type', 'up')->count();
+    }
+
+    public function getDownRateAttribute()
+    {
+        return $this->ratings()->where('rating_type', 'down')->count();
+    }
 }

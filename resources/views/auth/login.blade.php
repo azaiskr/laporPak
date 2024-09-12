@@ -2,18 +2,18 @@
 
 @section('content')
 <main>
-    <section class="bg-cover bg-center bg-fixed" style="background-image: url('http://www.listercarterhomes.com/wp-content/uploads/2013/11/dummy-image-square.jpg')">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto min-h-screen lg:py-0">
-            <div class="w-full bg-transparent md:mt-0 sm:max-w-md xl:p-0">
-                <div class="p-6 sm:p-8">
-                    <div class="mb-14">
-                        <h1 class="my-4 text-3xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                            Selamat datang di Lapor Pak
-                        </h1>
-                        <p class="my-4 text-md leading-tight tracking-tight text-gray-900">
-                            Masuk untuk akses akun Anda.
-                        </p>
-                    </div>
+    <section class="bg-cover bg-center bg-fixed h-screen" style="background-image: url('images/login-background.png');">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto min-h-screen lg:py-0">
+        <div class="w-full max-w-md sm:max-w-lg md:max-w-xl bg-white rounded-3xl shadow-lg md:mt-24 xl:p-0">
+            <div class="px-6 py-8 sm:px-12 sm:py-12">
+                <div class="mb-8 text-center sm:text-left">
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
+                        Selamat datang di Lapor Pak
+                    </h1>
+                    <p class="mt-2 text-sm sm:text-lg md:text-xl leading-tight tracking-tight text-gray-900">
+                        Masuk untuk akses akun anda
+                    </p>
+                </div>
                     <form class="space-y-4 md:space-y-6" action="{{ route('login') }}" method="POST">
                         @csrf
                         <div>
@@ -26,28 +26,29 @@
                             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-blue-50 border border-gray-300 text-gray-900 rounded-lg  block w-full p-2.5" required="">
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-black rounded bg-gray-50" required="">
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="remember" class="text-black">Ingatkan saya</label>
-                                </div>
+                        <div class="flex flex-col sm:flex-row items-center justify-between">
+                            <div  class="flex items-center mb-4 sm:mb-0">
+                                 <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-white" required="">
+                                 <label for="remember" class="ml-2 text-sm text-gray-700">Ingatkan saya</label>
                             </div>
                             @if (Route::has('password.request'))
                             <a href="#" class="text-sm font-medium hover:underline">Lupa password?</a>
                             @endif
                         </div>
-                        <button type="submit" class="w-full bg-black text-white focus:outline-none font-medium rounded-xl text-sm px-5 py-2.5 text-center">Sign in</button>
-                        <p class="text-xs text-center font-light text-black">
-                            Belum punya akun? <a href="{{ route('register') }}" class="font-medium text-red-600 hover:underline">Daftar disini.</a>
-                        </p>
-                    </form>
-                </div>
+                        @if (Route::has('password.request'))
+                        <a href="#" class="text-sm text-blue-700 font-medium hover:underline">Lupa password?</a>
+                        @endif
+                    </div>
+                    <button type="submit" class="w-full bg-black text-white focus:outline-none font-medium rounded-xl text-sm px-5 py-2.5 text-center">Sign in</button>
+                    <p class="text-sm text-center font-light text-gray-900 mt-4">
+                        Belum punya akun? <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:underline">Daftar disini.</a>
+                    </p>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 </main>
 @endsection
 
