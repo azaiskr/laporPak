@@ -35,14 +35,11 @@
                             <a href="#" class="text-sm font-medium hover:underline">Lupa password?</a>
                             @endif
                         </div>
-                        @if (Route::has('password.request'))
-                        <a href="#" class="text-sm text-blue-700 font-medium hover:underline">Lupa password?</a>
-                        @endif
+                        <button type="submit" class="w-full bg-black text-white focus:outline-none font-medium rounded-xl text-sm px-5 py-2.5">Sign in</button>
+                        <p class="text-sm text-center font-light text-gray-900 mt-4">
+                            Belum punya akun? <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:underline">Daftar disini.</a>
+                        </p>
                     </div>
-                    <button type="submit" class="w-full bg-black text-white focus:outline-none font-medium rounded-xl text-sm px-5 py-2.5 text-center">Sign in</button>
-                    <p class="text-sm text-center font-light text-gray-900 mt-4">
-                        Belum punya akun? <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:underline">Daftar disini.</a>
-                    </p>
                 </form>
             </div>
         </div>
