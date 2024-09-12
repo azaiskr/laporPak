@@ -28,7 +28,7 @@
                         </div>
                         <div class="flex flex-col sm:flex-row items-center justify-between">
                             <div  class="flex items-center mb-4 sm:mb-0">
-                                 <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-white" required="">
+                                 <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-white">
                                  <label for="remember" class="ml-2 text-sm text-gray-700">Ingatkan saya</label>
                             </div>
                             @if (Route::has('password.request'))
