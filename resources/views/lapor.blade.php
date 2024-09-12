@@ -57,22 +57,27 @@
                             <option value="4">Lainnya</option>
                         </select>
                     </div>
+                    <div class="flex flex-col">
+                        <div class="text-xl font-extrabold text-black">Location</div>
+                        <div class="flex gap-4">
+                            <div class="mb-5 w-full">
+                                <label for="longitude" class="block mb-2 text-md font-extrabold text-black">Longitude</label>
+                                <input type="text" id="longitude" name="longitude"
+                                    class="pl-4 bg-white border-black text-black text-sm rounded-full
+                                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+                                    placeholder="Masukkan longitude, contoh: 114.5914" required />
+                            </div>
 
-                    <div class="mb-5">
-                        <label for="longitude" class="block mb-2 text-xl font-extrabold text-black">Longitude</label>
-                        <input type="text" id="longitude" name="longitude"
-                            class="pl-4 bg-white border-black text-black text-sm rounded-full
-                            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
-                            placeholder="Masukkan longitude, contoh: 114.5914" required />
+                            <div class="mb-5 w-full">
+                                <label for="latitude" class="block mb-2 text-md font-extrabold text-black">Latitude</label>
+                                <input type="text" id="latitude" name="latitude"
+                                    class="pl-4 bg-white border-black text-black text-sm rounded-full
+                                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+                                    placeholder="Masukkan latitude, contoh: -8.6705" required />
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-5">
-                        <label for="latitude" class="block mb-2 text-xl font-extrabold text-black">Latitude</label>
-                        <input type="text" id="latitude" name="latitude"
-                            class="pl-4 bg-white border-black text-black text-sm rounded-full
-                            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
-                            placeholder="Masukkan latitude, contoh: -8.6705" required />
-                    </div>
 
                     <div class="mb-5">
                         <label for="address"
