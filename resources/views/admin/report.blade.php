@@ -98,7 +98,7 @@
             </tbody>
         </table>
         <div class="flex justify-center px-12 py-6 items-center">
-            
+
             <div class="flex items-center justify-center px-12">
                 <button type="button" class="text-black border border-black bg-white- hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 focus:bg-gray-100 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
                     <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="transform: rotate(-180deg); transform-origin: center;">
@@ -113,8 +113,8 @@
                 </button>
             </div>
             <div>
-                <button id="dropdownRightEndButton" data-dropdown-toggle="10" data-dropdown-placement="right-end" 
-                class="mb-3 md:mb-0 border border-black text-black bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium 
+                <button id="dropdownRightEndButton" data-dropdown-toggle="10" data-dropdown-placement="right-end"
+                class="mb-3 md:mb-0 border border-black text-black bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium
                 text-xs px-5 py-2.5 text-center inline-flex items-center" type="button">10
                 <svg class="w-2.5 h-2.5 ms-3 rtl:rotate-180 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
@@ -149,8 +149,8 @@
             <div class="flex px-4 items-start justify-between py-4">
                 <div class="flex items-start">
                     {{-- Close Button --}}
-                    <button id="default-display-button" type="button" style="transform: rotate(-180deg);" 
-                    class="text-black border border-black bg-white hover:bg-gray-300 focus:ring-4 
+                    <button id="default-display-button" type="button" style="transform: rotate(-180deg);"
+                    class="text-black border border-black bg-white hover:bg-gray-300 focus:ring-4
                     focus:outline-none focus:ring-gray-300 focus:bg-gray-100 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
                         <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -197,7 +197,7 @@
                 </div>
                 <div>
                     <p class="px-3 m-2">
-                        Jenis Kerusakan: 
+                        Jenis Kerusakan:
                     </p>
                     <br>
                     <p class="px-3 m-2">
@@ -212,7 +212,7 @@
                     </p>
                     <br>
                     <p class="px-3 m-2">
-                        Dampak Kerusakan: 
+                        Dampak Kerusakan:
                     </p>
                     <p class="px-3 m-2">
                         <br>· Lalu Lintas: Peningkatan risiko kecelakaan dan kemacetan lalu lintas. Pengemudi
